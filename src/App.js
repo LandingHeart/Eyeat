@@ -12,7 +12,6 @@ import {
     withNavigation,
 } from 'react-navigation'
 import { YellowBox } from 'react-native'
-import { View } from 'react-native'
 import Home from './screens/Home'
 import Search from './screens/Search'
 import QRCode from './screens/QRCode'
@@ -20,6 +19,11 @@ import QRCode from './screens/QRCode'
 YellowBox.ignoreWarnings([
     'Warning: isMounted(...) is deprecated',
     'Module RCTImageLoader',
+    'Module RNTextToSpeech requires',
+    'Module RNSpeechToText requires',
+    'Module RNToneAnalyzer requires',
+    'Module RNNaturalLanguageUnderstanding requires',
+    'Module RNConversation requires',
 ])
 
 type Props = {}

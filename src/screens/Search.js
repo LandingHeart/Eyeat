@@ -20,7 +20,7 @@ export default class Search extends Component {
     })
 
     _renderItem = ({ item }) => (
-        <View flex={1} paddingBottom={8}>
+        <View flex={1} paddingVertical={8}>
             <View flex={1}>
                 <Text fontSize={14} fontWeight="500">
                     {item.company}
@@ -35,13 +35,20 @@ export default class Search extends Component {
                     <StarRating
                         disabled={true}
                         maxStars={5}
-                        starSize={11}
+                        starSize={14}
                         rating={+item.rating}
                     />
-                    <Text>{item.balance}</Text>
+                    <Text>
+                        {item.openTime} - {item.closeTime}
+                    </Text>
+                </View>
+                <View flex={1}>
+                    <Text fontSize={13} color="#999">
+                        {item.address}
+                    </Text>
                 </View>
                 <View flex={3}>
-                    <Text fontSize={11}>{item.about}</Text>
+                    <Text fontSize={14}>{item.greeting}</Text>
                 </View>
             </View>
         </View>
@@ -53,6 +60,7 @@ export default class Search extends Component {
             <View flex={1}>
                 <SearchTopBar>
                     <SearchBar
+                        lightTheme
                         onChangeText={() => {}}
                         onClear={() => {}}
                         placeholder="Type Here..."
@@ -65,8 +73,8 @@ export default class Search extends Component {
                         ListHeaderComponent={() => <View height={20} />}
                         ItemSeparatorComponent={() => (
                             <View
-                                height={10}
-                                borderTopWidth={1}
+                                height={30}
+                                borderBottomWidth={1}
                                 borderColor="#aaa"
                             />
                         )}
