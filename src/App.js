@@ -15,6 +15,7 @@ import { YellowBox } from 'react-native'
 import Home from './screens/Home'
 import Search from './screens/Search'
 import QRCode from './screens/QRCode'
+import NfcManager, { NfcParse } from 'react-native-nfc-manager'
 
 YellowBox.ignoreWarnings([
     'Warning: isMounted(...) is deprecated',
@@ -47,6 +48,20 @@ const MainStack = TabNavigator({
 })
 
 export default class App extends Component {
+    componentWillMount() {
+        NfcManager.start({
+            onSessionClosedIOS: () => {
+                console.log('ios session closed')
+            },
+        })
+            .then(result => {
+                console.log('start OK', result)
+            })
+            .catch(error => {
+                console.warn('device does not support nfc!')
+                this.setState({ supported: false })
+            })
+    }
     render() {
         return <MainStack />
     }

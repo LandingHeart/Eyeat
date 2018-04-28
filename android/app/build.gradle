@@ -136,6 +136,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-nfc-manager')
     // compile project(':react-native-camera')
     compile(project(':react-native-camera')) {
         exclude group: "com.google.android.gms"
