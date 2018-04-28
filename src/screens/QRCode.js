@@ -13,6 +13,7 @@ export default class QRCode extends Component {
         super(props)
         this.state = {
             text: 'http://facebook.github.io/react-native/',
+            show: false,
         }
     }
 
@@ -20,32 +21,46 @@ export default class QRCode extends Component {
         console.log('Successful', e)
     }
 
+    toggleQRCode = () => {
+        this.setState({
+            show: !this.state.show,
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <QRCodeScanner
-                    onRead={this.onSuccess}
-                    topContent={
-                        <Text style={styles.centerText}>
-                            Go to{' '}
-                            <Text style={styles.textBold}>
-                                wikipedia.org/wiki/QR_code
-                            </Text>{' '}
-                            on your computer and scan the QR code.
-                        </Text>
-                    }
-                    bottomContent={
-                        <TouchableOpacity style={styles.buttonTouchable}>
-                            <Text style={styles.buttonText}>OK. Got it!</Text>
-                        </TouchableOpacity>
-                    }
-                />
+                {this.state.show && (
+                    <QRCodeScanner
+                        onRead={this.onSuccess}
+                        topContent={
+                            <Text style={styles.centerText}>
+                                Go to{' '}
+                                <Text style={styles.textBold}>
+                                    wikipedia.org/wiki/QR_code
+                                </Text>{' '}
+                                on your computer and scan the QR code.
+                            </Text>
+                        }
+                        bottomContent={
+                            <TouchableOpacity style={styles.buttonTouchable}>
+                                <Text style={styles.buttonText}>
+                                    OK. Got it!
+                                </Text>
+                            </TouchableOpacity>
+                        }
+                    />
+                )}
+                <Button title="Toggle QRCode" onPress={this.toggleQRCode} />
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     centerText: {
         flex: 1,
         fontSize: 18,
