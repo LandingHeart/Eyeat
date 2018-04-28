@@ -1,0 +1,31 @@
+{
+    "workbench.colorCustomizations": {
+        "editor.background": "#161616"
+    },
+    "files.exclude": {
+        "**/__generated__": true
+    },
+    "editor.tabSize": 4,
+    "prettier.eslintIntegration": true,
+    // "prettier.tabWidth": 4,
+    // "prettier.singleQuote": true,
+    // "prettier.useTabs": false,
+    // "prettier.semi": false,
+    // "prettier.trailingComma": "es5",
+    // "prettier.parser": "flow",
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+    "flow.useNPMPackagedFlow": true,
+    "javascript.validate.enable": false,
+    "eslint.enable": true,
+    "cSpell.words": [
+        "checkmark",
+        "ionicons",
+        "uPoints",
+        "uPoint",
+        "uDays",
+        "uDay"
+    ]
+}
