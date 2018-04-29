@@ -3,7 +3,9 @@ import { FlatList } from 'react-native'
 import glamorous, { View, Text } from 'glamorous-native'
 import { SearchBar } from 'react-native-elements'
 import restaurants from '../data/restaurants'
-import StarRating from 'react-native-star-rating'
+import FoodRenderItem from '../components/FoodRenderItem'
+import StorageService from '../lib/StorageService'
+import * as Icon from '../lib/Icons'
 
 const SearchTopBar = glamorous.view({
     width: '100%',
@@ -14,53 +16,48 @@ const ResultsContainer = glamorous.view({
     alignItems: 'stretch',
 })
 
-export default class Search extends Component {
+export default class Menu extends Component {
     static navigationOptions = ({ navigation, navigationOptions }) => ({
-        title: 'Search',
+        title: 'Menu',
+        tabBarIcon: ({ focused, tintColor }) => {
+            const { routeName } = navigation.state
+            let iconName = 'restaurant-menu'
+
+            // You can return any component that you like here! We usually use an
+            // icon component from react-native-vector-icons
+            return (
+                <Icon.MaterialIcons
+                    name={iconName}
+                    size={25}
+                    color={tintColor}
+                />
+            )
+        },
     })
 
-    _renderItem = ({ item }) => (
-        <View flex={1} paddingVertical={8}>
-            <View flex={1}>
-                <Text fontSize={14} fontWeight="500">
-                    {item.company}
-                </Text>
-            </View>
-            <View flex={1}>
-                <View
-                    flexDirection="row"
-                    flex={1}
-                    alignItems="center"
-                    justifyContent="space-between">
-                    <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        starSize={14}
-                        rating={+item.rating}
-                    />
-                    <Text>
-                        {item.openTime} - {item.closeTime}
-                    </Text>
-                </View>
-                <View flex={1}>
-                    <Text fontSize={13} color="#999">
-                        {item.address}
-                    </Text>
-                </View>
-                <View flex={3}>
-                    <Text fontSize={14}>{item.greeting}</Text>
-                </View>
-            </View>
+    _listEmptyComponent = () => (
+        <View flex={1} alignItems="center" padding={20}>
+            <Text fontSize={17} textAlign="center" fontColor={'#999'}>
+                Seems like you are not currently in a restaurant{'\n'}If you
+                are, please scan any NFC tag or QR code within the restaurant
+                for instant detection
+            </Text>
         </View>
     )
 
+    _renderItem = ({ item }) => <FoodRenderItem item={item} />
+
     render() {
-        const data = restaurants
+        const restId = StorageService.get().restaurantId
+        const data =
+            (!!restId || {}) && restaurants.filter(r => r._id === restId)[0]
+        console.log(data)
         return (
             <View flex={1}>
                 <SearchTopBar>
                     <SearchBar
                         lightTheme
+                        editable={!!restId}
                         onChangeText={() => {}}
                         onClear={() => {}}
                         placeholder="Type Here..."
@@ -68,8 +65,9 @@ export default class Search extends Component {
                 </SearchTopBar>
                 <ResultsContainer>
                     <FlatList
-                        data={data}
+                        data={data && data.menu}
                         contentContainerStyle={{ paddingHorizontal: 20 }}
+                        ListEmptyComponent={() => this._listEmptyComponent()}
                         ListHeaderComponent={() => <View height={20} />}
                         ItemSeparatorComponent={() => (
                             <View

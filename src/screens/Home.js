@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'react-native'
 import glamorous, { View, Text } from 'glamorous-native'
 import { SpeechToText } from 'react-native-watson'
-import { SpeechToTextUsername, SpeechToTextPassword } from '../lib/credentials'
 import * as Icon from '../lib/Icons'
-
-SpeechToText.initialize(SpeechToTextUsername, SpeechToTextPassword)
 
 const BigIconButtonContainer = glamorous.touchableOpacity({
     flex: 1,
@@ -18,9 +15,21 @@ const BigIconButtonContainer = glamorous.touchableOpacity({
 const BigIconButton = ({ font, name, text }) => {
     const BIcon = Icon[font]
     return (
-        <BigIconButtonContainer>
-            <BIcon name={name} size={100} style={{ paddingBottom: 20 }} />
-            <Text textAlign="center" fontSize={18}>
+        <BigIconButtonContainer
+            accessibilityLabel={text.toLowerCase()}
+            accessible={true}
+            onAcccessibilityTap={() => console.log('ACCESSIBILITY TAPPED')}>
+            <BIcon
+                name={name}
+                size={100}
+                style={{ paddingBottom: 20 }}
+                pointerEvents="none"
+            />
+            <Text
+                textAlign="center"
+                fontSize={18}
+                // accessibilityLabel={text.toLowerCase()}
+                pointerEvents="none">
                 {text}
             </Text>
         </BigIconButtonContainer>
@@ -30,6 +39,14 @@ const BigIconButton = ({ font, name, text }) => {
 export default class Home extends Component {
     static navigationOptions = ({ navigation, navigationOptions }) => ({
         title: 'Home',
+        tabBarIcon: ({ focused, tintColor }) => {
+            const { routeName } = navigation.state
+            let iconName = `ios-home${focused ? '' : '-outline'}`
+
+            // You can return any component that you like here! We usually use an
+            // icon component from react-native-vector-icons
+            return <Icon.Ionicons name={iconName} size={25} color={tintColor} />
+        },
     })
 
     _startRecording = () => {
@@ -42,6 +59,7 @@ export default class Home extends Component {
         SpeechToText.stopStreaming()
         console.log('Stopped streaming/recording')
     }
+
     render() {
         return (
             <View flex={1} backgroundColor="white">
