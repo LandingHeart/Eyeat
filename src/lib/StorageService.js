@@ -4,6 +4,8 @@ const instance = {}
 
 var updateState = () => {}
 
+var speaker = () => {}
+
 export default class StorageService {
     static init() {
         return AsyncStorage.getItem('storage').then(storage => {
@@ -36,6 +38,10 @@ export default class StorageService {
         updateState(instance)
     }
 
+    static speak(text) {
+        return speaker(text)
+    }
+
     static set(key, value) {
         if (key && value !== undefined) {
             if (instance) {
@@ -62,7 +68,10 @@ export default class StorageService {
     }
 
     static setStateUpdater = f => {
-        console.log('Setting updater to', f)
         updateState = f
+    }
+
+    static setSpeaker(f) {
+        speaker = f
     }
 }

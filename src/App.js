@@ -96,6 +96,7 @@ export default class App extends Component<Props> {
 
     componentDidMount() {
         StorageService.setStateUpdater(data => this.updateState(data))
+        StorageService.setSpeaker(text => this.speak(text))
         StorageService.init()
         // NfcManager.start({
         //     onSessionClosedIOS: () => {
@@ -140,8 +141,12 @@ export default class App extends Component<Props> {
     // }
 
     speak = text => {
+        if (this.state.talking) {
+            console.log('Alerady speaking, cancelling speak request of ', text)
+            return
+        }
         this.setState({ talking: true })
-        TextToSpeech.synthesize(text).then(() =>
+        return TextToSpeech.synthesize(text).then(() =>
             this.setState({ talking: false })
         )
     }

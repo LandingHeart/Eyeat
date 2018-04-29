@@ -168,9 +168,12 @@ export default class Nearby extends Component {
                         data={data}
                         contentContainerStyle={{ paddingHorizontal: 20 }}
                         ListHeaderComponent={() => <View height={20} />}
+                        ListFooterComponent={() => (
+                            <View height={20} zIndex={-1} />
+                        )}
                         ItemSeparatorComponent={() => (
                             <View
-                                height={30}
+                                height={11}
                                 borderBottomWidth={1}
                                 borderColor="#aaa"
                             />
