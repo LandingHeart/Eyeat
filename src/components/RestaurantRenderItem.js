@@ -68,6 +68,7 @@ export default class RestaurantRenderItem extends Component {
                     </View>
                 </View>
                 <GradeContainer
+                    accessibilityLabel="Read Inspection Grade and Description"
                     onPress={() =>
                         StorageService.speak(
                             ((item.grade && 'Grade-' + item.grade + '.\n') ||
