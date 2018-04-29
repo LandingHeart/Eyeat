@@ -31,10 +31,22 @@ export default class Nearby extends Component {
         },
     })
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            filteringTerms: [],
+        }
+    }
+
     _renderItem = ({ item }) => <RestaurantRenderItem item={item} />
 
     startVoice = () => {
-        if (StorageService.get().useVoice === undefined) {
+        if (true) {
+            StorageService.updateManyNonAsync({
+                showVoiceModal: true,
+                processAudio: text => this.filterWithVoice(text),
+            })
+        } else if (StorageService.get().useVoice === undefined) {
             console.log('Asking user if they want to use voice')
             let count = 0
             TextToSpeech.synthesize(
@@ -77,7 +89,12 @@ export default class Nearby extends Component {
     }
 
     filterWithVoice = text => {
-        console.log('Text to filter: ', text)
+        console.log('Nearby screen received text: ', text)
+        if (text) {
+            filteringTerms = text.toLowerCase().split(' ')
+            filteringTerms = filteringTerms.filter(t => t !== '')
+            this.setState({ filteringTerms })
+        }
     }
 
     _startRecording = callback => {
@@ -90,7 +107,45 @@ export default class Nearby extends Component {
     }
 
     render() {
-        const data = restaurants
+        let data = restaurants
+        const filteringTerms = this.state.filteringTerms
+        if (filteringTerms && filteringTerms.length > 0) {
+            console.log(filteringTerms)
+            data = data.filter(restaurant => {
+                console.log(restaurant)
+                let filtered = filteringTerms.filter(t => {
+                    descSplit = restaurant.cuisine_description
+                        .toLowerCase()
+                        .split(' ')
+                        .includes(t)
+                    dbaSplit = restaurant.dba
+                        .toLowerCase()
+                        .split(' ')
+                        .includes(t)
+                    boroSplit = restaurant.boro
+                        .toLowerCase()
+                        .split(' ')
+                        .includes(t)
+                    zipcodeSplit = restaurant.zipcode
+                        .toLowerCase()
+                        .split(' ')
+                        .includes(t)
+                    streetSplit = restaurant.street
+                        .toLowerCase()
+                        .split(' ')
+                        .includes(t)
+
+                    return (
+                        descSplit ||
+                        dbaSplit ||
+                        boroSplit ||
+                        zipcodeSplit ||
+                        streetSplit
+                    )
+                })
+                return filtered.length
+            })
+        }
         const useVoice =
             StorageService.get().useVoice === undefined ||
             StorageService.get().useVoice
@@ -101,6 +156,7 @@ export default class Nearby extends Component {
                     pointerEvents={(useVoice && 'auto') || 'box-none'}>
                     <SearchBar
                         lightTheme
+                        value={filteringTerms && filteringTerms.join(', ')}
                         editable={useVoice === false}
                         onChangeText={() => {}}
                         onClear={() => {}}
@@ -120,7 +176,7 @@ export default class Nearby extends Component {
                             />
                         )}
                         renderItem={this._renderItem}
-                        keyExtractor={item => item._id}
+                        keyExtractor={item => item.camis}
                     />
                 </ResultsContainer>
             </View>

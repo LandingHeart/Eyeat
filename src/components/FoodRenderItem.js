@@ -21,7 +21,7 @@ export default class FoodRenderItem extends Component {
             <View flex={1} paddingVertical={8}>
                 <View flex={1}>
                     <Text fontSize={19} fontWeight="500">
-                        {item.company}
+                        {item.title}
                     </Text>
                 </View>
                 <View flex={1}>

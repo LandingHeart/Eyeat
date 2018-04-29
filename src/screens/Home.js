@@ -1,44 +1,32 @@
 import React, { Component } from 'react'
-import { Button } from 'react-native'
+import { Button, Image, Dimensions } from 'react-native'
 import glamorous, { View, Text } from 'glamorous-native'
 import { SpeechToText } from 'react-native-watson'
 import * as Icon from '../lib/Icons'
 
-const BigIconButtonContainer = glamorous.touchableOpacity({
-    flex: 1,
-    backgroundColor: 'white',
+const Header = glamorous.view({
+    maxHeight: 30,
+    borderTopWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    borderBottomWidth: 1,
+    borderColor: '#999',
+    flex: 1,
 })
 
-const BigIconButton = ({ font, name, text }) => {
-    const BIcon = Icon[font]
-    return (
-        <BigIconButtonContainer
-            accessibilityLabel={text.toLowerCase()}
-            accessible={true}
-            onAcccessibilityTap={() => console.log('ACCESSIBILITY TAPPED')}>
-            <BIcon
-                name={name}
-                size={100}
-                style={{ paddingBottom: 20 }}
-                pointerEvents="none"
-            />
-            <Text
-                textAlign="center"
-                fontSize={18}
-                // accessibilityLabel={text.toLowerCase()}
-                pointerEvents="none">
-                {text}
-            </Text>
-        </BigIconButtonContainer>
-    )
-}
+const Row = glamorous.view({
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingVertical: 7,
+})
+
+const ImagePlaceholder = glamorous.touchableOpacity({})
 
 export default class Home extends Component {
     static navigationOptions = ({ navigation, navigationOptions }) => ({
-        title: 'Home',
+        title: 'EYEAT',
         tabBarIcon: ({ focused, tintColor }) => {
             const { routeName } = navigation.state
             let iconName = `ios-home${focused ? '' : '-outline'}`
@@ -49,44 +37,133 @@ export default class Home extends Component {
         },
     })
 
-    _startRecording = () => {
-        SpeechToText.startStreaming((error, text) => {
-            console.log('Stream response: ', text)
-        })
-    }
-
-    _stopRecording = () => {
-        SpeechToText.stopStreaming()
-        console.log('Stopped streaming/recording')
-    }
-
     render() {
         return (
             <View flex={1} backgroundColor="white">
-                <View flex={1} alignItems="center" justifyContent="center">
-                    <Text textAlign="center" fontSize={17} fontWeight="600">
-                        <Text>To get to the menu of the restaurant{'\n'}</Text>
-                        <Text>Touch RIGHT to use your location{'\n'}</Text>
-                        <Text>Touch LEFT to use a QR Code</Text>
-                    </Text>
-                    <View
-                        paddingTop={20}
-                        width="80%"
-                        flexDirection="row"
-                        alignItems="center"
-                        justifyContent="space-around">
-                        <BigIconButton
-                            name="barcode-scan"
-                            font="MaterialCommunityIcons"
-                            text={'SCAN\n QR CODE'}
-                        />
-                        <BigIconButton
-                            name="my-location"
-                            font="MaterialIcons"
-                            text={'CURRENT LOCATION'}
-                        />
-                    </View>
-                </View>
+                <Header>
+                    <Text>Most Popular</Text>
+                </Header>
+                <Row>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                </Row>
+                <Header>
+                    <Text>Most Friendly</Text>
+                </Header>
+                <Row>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                </Row>
+                <Header>
+                    <Text>Your Friends Have Visited</Text>
+                </Header>
+                <Row>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                    <ImagePlaceholder
+                        style={{
+                            width: Dimensions.get('window').width / 3 - 7,
+                            height: Dimensions.get('window').width / 3 - 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgb(171, 251, 174)',
+                        }}>
+                        <Text style={{ fontSize: 18, fontWeight: '600' }}>
+                            McDonalds
+                        </Text>
+                    </ImagePlaceholder>
+                </Row>
+                <View flex={0.5} />
             </View>
         )
     }

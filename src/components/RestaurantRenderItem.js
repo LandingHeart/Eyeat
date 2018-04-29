@@ -7,10 +7,14 @@ export default class RestaurantRenderItem extends Component {
         const item = this.props.item
         return (
             <View flex={1} paddingVertical={8}>
-                <View flex={1}>
+                <View
+                    flex={1}
+                    flexDirection="row"
+                    justifyContent="space-between">
                     <Text fontSize={19} fontWeight="500">
-                        {item.company}
+                        {item.dba}
                     </Text>
+                    <Text>{item.zipcode}</Text>
                 </View>
                 <View flex={1}>
                     <View
@@ -29,17 +33,14 @@ export default class RestaurantRenderItem extends Component {
                             fullStarColor="red"
                             rating={Math.round(+item.rating)}
                         />
-                        <Text>
-                            {item.openTime} - {item.closeTime}
-                        </Text>
                     </View>
                     <View flex={1}>
                         <Text fontSize={16} color="#999">
-                            {item.address}
+                            {item.boro}
                         </Text>
                     </View>
                     <View flex={3}>
-                        <Text fontSize={14}>{item.greeting}</Text>
+                        <Text fontSize={14}>{item.cuisine_description}</Text>
                     </View>
                 </View>
             </View>

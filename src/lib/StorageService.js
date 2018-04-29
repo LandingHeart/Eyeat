@@ -27,6 +27,15 @@ export default class StorageService {
         }
     }
 
+    static updateManyNonAsync(elements) {
+        for (const element in elements) {
+            if (elements.hasOwnProperty(element)) {
+                instance[element] = elements[element]
+            }
+        }
+        updateState(instance)
+    }
+
     static set(key, value) {
         if (key && value !== undefined) {
             if (instance) {
