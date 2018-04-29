@@ -11,7 +11,7 @@ import {
     DrawerNavigator,
     withNavigation,
 } from 'react-navigation'
-import glamorous, { View, Text } from 'glamorous-native'
+import glamorous, { View, Text, Image } from 'glamorous-native'
 import { YellowBox, Modal, Dimensions } from 'react-native'
 import StorageService from './lib/StorageService'
 import Home from './screens/Home'
@@ -27,6 +27,7 @@ import {
     TextToSpeechPassword,
 } from './lib/credentials'
 import * as Icon from './lib/Icons'
+import AudioLogo from './img/audio_logo.png'
 
 YellowBox.ignoreWarnings([
     'Warning: isMounted(...) is deprecated',
@@ -214,17 +215,13 @@ export default class App extends Component<Props> {
                             onPressIn={() => this.startListening()}
                             onPressOut={() => this.stopListening()}>
                             <View
-                                backgroundColor="rgba(255,255,255,0.5)"
                                 alignItems="center"
                                 justifyContent="center"
                                 width="50%"
                                 height="50%">
-                                <Text textColor="white">
-                                    Tap and hold anywhere to speak
-                                </Text>
-                                <Icon.MaterialIcons
-                                    name="keyboard-voice"
-                                    size={140}
+                                <Image
+                                    source={AudioLogo}
+                                    style={{ width: 120, height: 120 }}
                                 />
                             </View>
                         </VoiceModalContainer>
