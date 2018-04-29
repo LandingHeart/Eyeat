@@ -2,18 +2,6 @@ import React, { Component } from 'react'
 import StarRating from 'react-native-star-rating'
 import { View, Text } from 'glamorous-native'
 
-/**
- * 
- * 
-                _id: '5ae42862f2575257b7653d91',
-                picture: 'http://placehold.it/32x32',
-                title: 'Fischer',
-                rating: '0.38',
-                company: 'COSMOSIS',
-                ingredients: 'half and half',
-                category: 'nearby',
- */
-
 export default class FoodRenderItem extends Component {
     render() {
         const item = this.props.item
