@@ -1,9 +1,9 @@
 # EYEAT
 
 ## Installation
+https://devpost.com/software/eyeat
 
 ```bash
-https://devpost.com/software/eyeat
 $ git clone https://github.com/LuisRizo/Eyeat.git
 $ cd Eyeat
 $ npm install
